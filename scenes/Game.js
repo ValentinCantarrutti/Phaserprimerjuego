@@ -5,6 +5,8 @@ export default class Game extends Phaser.Scene {
     // key of the scene
     // the key will be used to start the scene by other scenes
     super("game");
+
+    
   }
 
   init() {
@@ -108,6 +110,7 @@ export default class Game extends Phaser.Scene {
 
   update() {
     // update game objects
+
     if (this.cursors.left.isDown) {
       this.player.setVelocityX(-160);
 
@@ -160,5 +163,17 @@ export default class Game extends Phaser.Scene {
     this.player.anims.play("turn");
 
     this.gameOver = true;
+
+    this.perder = this.add.text(300, 300, `Game Over`, {
+      fontSize: "32px",
+      fill: "#000",
+    });
+
+    this.puntuacion = this.add.text(300, 260, `Score: ${this.score}`, {
+      fontSize: "32px",
+      fill: "#000",
+    });
+
+    this.scoreText.visible = false;
   }
 }
