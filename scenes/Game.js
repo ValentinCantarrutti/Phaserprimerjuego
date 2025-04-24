@@ -106,6 +106,19 @@ export default class Game extends Phaser.Scene {
       null,
       this
     );
+    this.timer = this.time.addEvent({ delay: 31000, callback: () => this.hitBomb(this.player, null) });
+
+    this.timerText = this.add.text(620, 16, "Time: 31", {
+      fontSize: "32px",
+      fill: "#000",
+    });
+
+    this.rKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+
+    this.reinicio = this.add.text(364, 556, `Press "R" to restart.`, {
+      fontSize: "32px",
+      fill: "#000",
+    });
   }
 
   update() {
@@ -127,6 +140,15 @@ export default class Game extends Phaser.Scene {
 
     if (this.cursors.up.isDown && this.player.body.touching.down) {
       this.player.setVelocityY(-330);
+    }
+
+    if (this.timer) {
+      const remaining = Math.max(0, Math.floor(this.timer.getRemainingSeconds()));
+      this.timerText.setText(`Time: ${remaining} `);
+    }
+
+    if (this.rKey.isDown) {
+      this.scene.restart();
     }
   }
 
@@ -174,6 +196,11 @@ export default class Game extends Phaser.Scene {
       fill: "#000",
     });
 
+  
+
     this.scoreText.visible = false;
+    this.timerText.visible = false;
   }
+
+
 }
